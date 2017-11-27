@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+	<meta charset="UTF-8">
+	<title>RAISON</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.1">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/styles.css?v1.0.2">
+	<link rel="stylesheet" href="css/responsive.css">
+
+	<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+	<link rel="shortcut icon" href="#" type="image/x-icon">
+
+	<script src="https://unpkg.com/vue"></script>
+	
+</head>
+<body>
+<div class="the-most-global-wrapper" id="appBitcoin">
+	<div class="block" v-bind:style="{float: floatPositionOfFirstScreen}">
+		<div class="global-wrapper">
+			<div class="wrapper">
+				<div class="slide-menu" v-bind:class="{ 'active': menuState }">
+					<a class="menu-icon"  v-on:click="togglMenuState"></a>
+					<a href="index.html" class="logo">Raison</a>
+					<nav>
+						<ul>
+							<li><a class="deactiv">accounts</a></li>
+							<li><a class="deactiv">bank cards</a></li>
+							<li><a v-on:click="toggleGlobalPage('crypto')">cryptocurrency assets</a></li>
+							<li><a class="deactiv">investments</a></li>
+							<li><a v-on:click="toggleGlobalPage('collaboration')">collaborative funding</a></li>
+							<li><a v-on:click="toggleGlobalPage('spendings-advisory')">AI advisory</a><span class="counter" v-show="numOfAdvisories>0">{{numOfAdvisories}}</span></li>
+						</ul>
+					</nav>
+				</div>
+				<template v-if="globalPage=='bank-accounts'">
+					<section class="section-assets">
+						<header class="header">
+							<div class="container clearfix">
+								<a class="menu-icon" v-on:click="togglMenuState"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<!--<a href="#" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>-->
+								<h3 class="header-h3">Current assets</h3>
+								<span class="current-assets-amount">14 620 €</span>
+							</div>
+						</header>
+						<template v-if="assetBasic">
+							<div class="container current-assets-accounts" style="background: #fff">
+								<div class="current-assets-raison-block"  v-bind:class="{ 'current-assets-raison-block-expanded': assetBasicPage == 'raison' }" v-on:click="toggleAssetBasicPage('raison')">
+									<div class="current-assets-raison-block-header">
+										<span class="current-assets-header">Raison</span>
+										<span class="current-assets-links">
+											<a v-on:click="toggleAssetSubCategory('accounts')" v-bind:class="{ active: assetSubCategory == 'accounts'}">Accounts</a> <a  v-on:click="toggleAssetSubCategory('cards')" v-bind:class="{ active: assetSubCategory == 'cards' }">Cards</a>
+										</span>
+										<span class="current-assets-balance">8 562 €</span>
+									</div>
+									<div class="current-assets-raison-block-list" v-if="assetSubCategory == 'accounts'">
+										<div class="current-assets-raison-block-list-item">
+											<span class="current-assets-raison-block-list-item-title">Current account</span>
+											<span class="current-assets-raison-block-list-item-balance">1 750 €</span>
+											<span class="current-assets-raison-block-list-item-change"></span>
+										</div>
+										<div class="current-assets-raison-block-list-item">
+											<span class="current-assets-raison-block-list-item-title">Investment account</span>
+											<span class="current-assets-raison-block-list-item-balance">4 673 €</span>
+											<span class="current-assets-raison-block-list-item-change"></span>
+										</div>
+										<div class="current-assets-raison-block-list-item">
+											<span class="current-assets-raison-block-list-item-title">Crypto wallet</span>
+											<span class="current-assets-raison-block-list-item-balance">0.342 BTC</span>
+											<span class="current-assets-raison-block-list-item-change">-2 903 €</span>
+										</div>
+									</div>
+									<div class="current-assets-raison-block-list-cards current-assets-raison-block-list" v-if="assetSubCategory == 'cards'">
+										<div class="current-assets-raison-block-list-item">
+											<img src="img/bm_img/visa.png" class="card-icon-img"><!--<span class="card-icon"></span>-->
+											<span class="current-assets-raison-block-list-item-title">5555 55** **** 5555</span>
+											<span class="current-assets-raison-block-list-item-type">Credit</span>
+											<span class="current-assets-raison-block-list-item-balance">1 750 €</span>
+										</div>
+										<div class="current-assets-raison-block-list-item">
+											<img src="img/bm_img/mastercard.png" class="card-icon-img"><!--<span class="card-icon"></span>-->
+											<span class="current-assets-raison-block-list-item-title">5555 55** **** 5555</span>
+											<span class="current-assets-raison-block-list-item-type">Debit</span>
+											<span class="current-assets-raison-block-list-item-balance">4 673 €</span>
+
+										</div>
+										<div class="current-assets-raison-block-list-item">
+											<img src="img/bm_img/visa.png" class="card-icon-img"><!--<span class="card-icon"></span>-->
+											<span class="current-assets-raison-block-list-item-title">5555 55** **** 5555</span>
+											<span class="current-assets-raison-block-list-item-type">Credit</span>
+											<span class="current-assets-raison-block-list-item-balance">1 724 €</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="current-assets-raison-block" v-bind:class="{ 'current-assets-raison-block-expanded': assetBasicPage == 'deutsche-bank' }" v-on:click="toggleAssetBasicPage('deutsche-bank')">
+									<div class="current-assets-raison-block-header">
+										<span class="current-assets-header">Deutsche bank</span>
+										<span class="current-assets-links">
+											<a class="active">Accounts</a> <a>Cards</a>
+										</span>
+										<span class="current-assets-balance">2 312 €</span>
+									</div>
+									<div class="current-assets-raison-block-list">
+										<div class="current-assets-raison-block-list-item">
+											<span class="current-assets-raison-block-list-item-title">Current account</span>
+											<span class="current-assets-raison-block-list-item-balance">1 750 €</span>
+											<span class="current-assets-raison-block-list-item-change"></span>
+										</div>
+										<div class="current-assets-raison-block-list-item">
+											<span class="current-assets-raison-block-list-item-title">Saving account</span>
+											<span class="current-assets-raison-block-list-item-balance">4 673 €</span>
+											<span class="current-assets-raison-block-list-item-change"></span>
+										</div>
+									</div>
+								</div>
+								<div class="current-assets-raison-block" style="cursor: default">
+									<div class="current-assets-raison-block-header">
+										<span class="current-assets-header">Barclays</span>
+										<span class="current-assets-balance">3 761 €</span>
+									</div>
+								</div>
+							</div>
+							<div class="container current-assets-cash-flow" v-on:click="toggleCashflow"  style="cursor: pointer;"> 
+								<div class="current-assets-cash-flow-header">
+									<span class="current-assets-cash-flow-header-title">Cash flow</span>
+									<span class="current-assets-cash-flow-header-month">November</span>
+								</div>
+								<div class="current-assets-cash-flow-content">
+									<div class="current-assets-cash-flow-block">
+										<span class="current-assets-cash-flow-block-title">Expenditures</span>
+										<div class="current-assets-cash-flow-block-value current-assets-cash-flow-block-value-1">
+											<span class="current-assets-cash-flow-block-progress-amount">2 587 €</span>
+										</div>
+									</div>
+									<div class="current-assets-cash-flow-block">
+										<span class="current-assets-cash-flow-block-title">Income</span>
+										<div class="current-assets-cash-flow-block-value current-assets-cash-flow-block-value-2">
+											<span class="current-assets-cash-flow-block-progress-amount">7 896 €</span>
+										</div>
+									</div>
+								</div>
+								<div class="current-assets-cash-flow-footer">
+									<a>Details</a>
+								</div>
+							</div>
+						</template>
+						<template v-else>
+							<div class="container current-assets-cash-flow current-assets-cash-flow-expanded" v-on:click="toggleCashflow" style="cursor: pointer;">
+								<div class="current-assets-cash-flow-header">
+									<span class="current-assets-cash-flow-header-title">Cash flow</span>
+									<span class="current-assets-cash-flow-header-month">November</span>
+								</div>
+								<div class="current-assets-cash-flow-real-content"></div>
+								<div class="current-assets-cash-flow-content">
+									<div class="current-assets-cash-flow-block">
+											<span class="current-assets-cash-flow-block-title">Expenditures</span>
+											<div class="current-assets-cash-flow-block-value current-assets-cash-flow-block-value-1">
+												<span class="current-assets-cash-flow-block-progress-amount">2 587 €</span>
+											</div>
+									</div>
+									<div class="current-assets-cash-flow-block">
+											<span class="current-assets-cash-flow-block-title">Income</span>
+											<div class="current-assets-cash-flow-block-value current-assets-cash-flow-block-value-2">
+												<span class="current-assets-cash-flow-block-progress-amount">7 896 €</span>
+											</div>
+									</div>
+								</div>
+								<div class="current-assets-cash-flow-footer">
+										<a href="#">Details</a>
+								</div>
+							</div>
+						</template>
+						<div class="section-footer"  style="cursor: default">
+							<div class="container">
+								<a>Connect more banks<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section> <!-- .section-2 -->
+				</template>
+				<template v-if="globalPage=='collaboration'">
+					<section class="section-1_2" v-show="fundingPage==1">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								
+								<h3 class="header-h3 collaborative-funding">collaborative funding</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container clearfix">
+								<div class="input-block input-block-1">
+									<p>funding purpose</p>
+									<input type="text" value="Waldemar karcher's b-day" v-model="fundingGlobalOBject.purpose">
+								</div>
+								<div class="clearfix">
+									<div class="input-block input-block-2">
+										<p>funding goal</p>
+										<input type="text" value="350" v-model="fundingGlobalOBject.value">
+									</div>
+									<p class="usd">USD</p>
+									<div class="input-block input-block-3 dateSelector">
+										<p>funding deadline</p>
+										<div class='dateSelector'>
+											<input type='input' name='date' id='hbdsdf' value='15 May 2017' v-model="deadlineDate" />
+										</div>
+									</div>
+								</div>
+								<h4>friends participating</h4>
+								<a v-on:click="fundingPage+=1" class="add-friend"></a>
+							</div>
+						</div>
+						<div class="section-1-main">
+							<div class="container">
+								<ul class="users-list">
+									<li class="clearfix user-0" v-for="(item, index) in listOfFundingFriends">
+										<a href="#"><img src="item.img"></a> 
+										<h5>{{item.title}}</h5>
+										<a v-on:click="listOfFundingFriends.splice(index, 1)" class="del-friend"></a>
+									</li>
+								</ul>
+							</div>
+						</div> <!-- .section-1-main -->
+						<div class="section-footer">
+							<div class="container">
+								<a href="#">begin fund raising<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section> <!-- .section-1_2 -->
+					<section class="section-1_3" v-show="fundingPage==2">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<h3 class="header-h3 collaborative-funding">collaborative funding</h3>
+							</div>
+						</header>
+						<input type="text" class="search" placeholder="Search...">
+						<div class="section-1-main">
+							<ul class="users-list" style="height: 100%">
+								<li class="clearfix user-0" v-for="(item, index) in allFundingFriends" v-on:click="fundingPopupActive=true, fundingCandidateActive(index)">
+									<a href="#"><img :src="item.img"></a> 
+									<h5>{{item.title}}</h5>
+								</li>
+							</ul>
+						</div> <!-- .section-1-main -->
+						<div class="pop-up-invite">
+							<div class="pop-up-wrap"  v-show="fundingPopupActive">
+								<div class="pop-up-content">
+									<h2>invite <span>{{activeFundingCandidate.title}}</span> to collaborate on <span>{{fundingGlobalOBject.purpose}}</span></h2>
+									<div class="pop-up-btn">
+										<a v-on:click="fundingPopupActive=false" class="cancel-btn">Cancel</a>
+										<a v-on:click="fundingPage=4, fundingPopupActive=false, CDT(), secondScreen=true, mobUserCollab()" class="ok-btn">OK</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section> <!-- .section-1_3 -->
+					<section class="section-3" v-show="fundingPage==4">
+						<header class="header">
+							<div class="container clearfix">
+								<a  v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<h3 class="header-h3 collaborative-funding">collaborative funding</h3>
+								<a href="#" class="edit-btn">Edit<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h2>{{fundingGlobalOBject.purpose}}</h2>
+								<h3>virtual card will be available upon fund raising completion</h3>
+								<div class="progress-block clearfix">
+									<div class="clearfix">
+										<h5>funding progress</h5>
+										<p>2 days and 6 hours left</p>
+									</div>
+									<div class="progress-bar">
+										<div class="progress-1" v-bind:style="{width: (realnumberContribution/fundingGlobalOBject.value)*100+'%'}"></div>
+										<div class="progress-2"></div>
+										<div class="values">
+											<div class="value-1">
+												<span class="value-left">{{realnumberContribution}} usd</span>
+												<span class="value-right">raised</span>
+											</div>
+											<div class="value-2">
+												<span class="value-left">{{fundingGlobalOBject.value-realnumberContribution}} usd</span>
+												<span class="value-right">left</span>
+											</div>
+										</div> <!-- .values -->
+									</div> <!-- .progress-bar -->
+								</div>
+								<div class="clearfix">
+									<h5>contributors</h5>
+									<a href="#"><span>Invite more</span><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+								</div>
+							</div>
+						</div>	
+						<div class="section-1-main">
+							<ul class="users-list">
+								<li class="clearfix user-3">
+									<a href="#"><img :src="pandingFundingCandidate.img" alt=""> </a>
+									<h5>{{pandingFundingCandidate.title}}</h5>
+									<p class="value-pending" v-show="pendingSecondStatus">pending</p>
+									<p class="value-active" v-show="pendingSecondStatus!=true">{{fundingGlobalOBject.value-120-howMuchToContribute}} USD</p>
+								</li>
+								<li class="clearfix user-3">
+									<a href="#"><img :src="activeFundingCandidate.img" alt=""> </a>
+									<h5>{{activeFundingCandidate.title}}</h5>
+									<p class="value-pending" v-show="pendintStatus">pending</p>
+									<p class="value-active" v-show="pendintStatus!=true">{{howMuchToContribute}} USD</p>
+								</li>
+								<li class="clearfix user-0" v-for="(item, index) in candidatesToPending">
+									<a href="#"><img :src="item.img"></a> 
+									<h5>{{item.title}}</h5>
+									<p class="value-active">60 USD</p>
+								</li>
+							</ul>
+						</div> <!-- .section-1-main -->
+						<div class="section-footer" v-on:click="fundingPage+=1, secondScreen=false">
+							<div class="container">
+								<a href="#">STOP FUND RAISING<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section> <!-- .section-3 -->
+					<section class="section-4"  v-show="fundingPage==5">
+						<header class="header">
+							<div class="container clearfix">
+								<a  v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<h3 class="header-h3 collaborative-funding">collaborative funding</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h2>{{fundingGlobalOBject.purpose}}</h2>
+								<div class="progress-block clearfix">
+									<div class="clearfix">
+										<h5>completed</h5>
+									</div>
+									<div class="progress-bar">
+										<div class="progress-1"></div>
+										<div class="progress-2"></div>
+										<div class="values">
+											<div class="value-1">
+												<span class="value-left">{{fundingGlobalOBject.value}} usd</span>
+												<span class="value-right">raised</span>
+											</div>
+										</div> <!-- .values -->
+									</div> <!-- .progress-bar -->
+								</div>
+								<a class="tap-to-watch" href="#">tap to watch contributors</a>
+							</div>
+						</div>	
+						<div class="section-1-main">
+							<div class="container">
+								<div class="card">
+									<div class="microchip"></div>
+									<h2 class="card-logo">Raison</h2>
+									<p class="number-card">4000 1234 5678 9010</p>
+									<a class="tap-to-copy" href="#">tap to copy the number</a>
+									<p class="valid">valid thru 12/17</p>
+									<p class="owner">OLEG BEREZIN</p>
+									<div class="type-card"></div>
+								</div>
+							</div>
+
+						</div> <!-- .section-1-main -->
+						<div class="section-footer">
+							<div class="container">
+								<a>activate apple pay<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+						<div class="section-footer" v-on:click="toggleGlobalPage('collaboration')">
+							<div class="container">
+								<a>SHOW security code<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section> <!-- .section-4 -->
+				</template>
+				<template v-if="globalPage=='crypto'">
+					<section class="section-10" v-show="cryptoPage==1">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<!--<a v-on:click="fundingPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>-->
+								<h3 class="header-h3 collaborative-funding">CRYPTOCURRENCY</h3><h3 class="left"></h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<div class="asset-list">
+									<div class="asset-option" v-for="(item, index) in listOfAssets" v-on:click="listOfAssets[index].status=true, cryptoPage+=1">
+										<img :src="item.logo" class="asset-logo">
+										<div class="asset-name">{{item.title}}</div>
+										<div class="asset-price">
+											{{item.currency}} {{item.price}}
+											<span class="change" v-bind:class="{ red: item.percentage < 0 }"><span class="period">{{item.period}}</span>{{item.percentage}}%</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="section-11"  v-show="cryptoPage==2">
+						<header class="header">
+							<div class="container clearfix">
+								<a  v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY BID</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange">
+										<p>you buy</p>
+										<input type="text" value="2.0000" v-model="cryptoYouWantToBuy">
+									</div>
+									<p class="usd">{{currentAsset.symbol}}</p>
+								</div>
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange">
+										<p>you pay</p>
+										<input type="text" value="13,237.28"  v-model="cryptoYouWantToBuyCost">
+									</div>
+									<p class="usd">{{currentAsset.currency}}</p>
+								</div>
+								<div class="clearfix">
+									<div class="input-block exchange">
+										<p>AT RATE</p>
+										<input type="text" value="6,618.64"  class="rate-input" v-model="currentAsset.price" disabled><input type="number" min="5" class="percentRisk" max="20" v-model="cryptoRisk">
+									</div>
+									<p class="usd margin-top-none">{{currentAsset.currency}} <span class="small">PER</span> {{currentAsset.symbol}}</p>
+									<p class="note">
+										THE rate of exchange is GIVEN approximately and is a subject to change in accordance with current market volatility. You MAY SELECT THE DESIRED VOLATILITY RANGE UPON WHICH your bid Will be proceeded
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="section-footer top-level" v-on:click="cryptoPage+=1">
+							<div class="container">
+								<a >buy now<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+						<div class="section-footer blue" v-on:click="cryptoPage=5">
+							<div class="container">
+								<a href="#">ADVICE BEST STRATEGY<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-12" v-show="cryptoPage==3">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">BUY {{currentAsset.title}}</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h5>A BID for buying</h5>
+								<h2 class="big">{{cryptoYouWantToBuy}}</h2>
+								<h5>FOR</h5>
+								<h2 class="big">{{cryptoYouWantToBuyCost}} USD</h2>
+								<h5>has been placed</h5>
+								<p class="small">the processing time on bitcoin blockchain may vary from 30 minutes to 1.5 hour</p>
+								<img class="rang" src="img/bm_img/rang.png">
+								<h5>WE will notify you once we're done</h5>
+							</div>
+						</div>
+
+						<div class="section-footer ok" style="cursor: pointer;" v-on:click="cryptoPage+=1">
+							<div class="container">
+								OK
+							</div>
+						</div>
+					</section>
+					<section class="section-13"  v-show="cryptoPage==4">
+						<header class="header">
+							<div class="container clearfix">
+								<a  v-on:click="togglMenuState"  class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY SUCCEEDED</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange long">
+										<p>YOU have bought</p>
+										<input type="text" value="2.0000" class="disabled" disabled v-model="cryptoYouWantToBuy">
+									</div>
+									<p class="long usd">{{currentAsset.symbol}}</p>
+								</div>
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange long">
+										<p>you pay</p>
+										<input type="text" value="13,237.28" class="disabled" disabled v-model="cryptoYouWantToBuyCost">
+									</div>
+									<p class="usd">{{currentAsset.currency}}</p>
+									<p class="long note">including <b>usd 5.00</b> commission fee</p>
+								</div>
+								<div class="clearfix">
+									
+									<div class="input-block exchange long">
+										<p>AT RATE</p>
+										<input type="text" value="6,618.64" class="rate-input" disabled v-model="currentAsset.price">
+									</div>
+									<p class="long usd margin-top-none">{{currentAsset.currency}} <span class="small">PER</span> {{currentAsset.symbol}}</p>
+									<p class="note">which is WITHIN THE APPROPRIATE VOLATILITY RANGE of ± {{cryptoRisk}}% </p>
+								</div>
+							</div>
+						</div>
+						<div class="section-footer" style="cursor: pointer;" v-on:click="cryptoPage=1, toggleGlobalPage('bank-accounts')">
+							<div class="container">
+								<a href="#">WATCH MY ASSETS<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-14" v-show="cryptoPage==5">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState"  class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage=2" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY STRATEGY</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container blue">
+								<p>RAISON WILL analyze the market 
+									<br>And WILL BUY</p>
+								<h2 class="big">{{cryptoYouWantToBuy}} {{currentAsset.symbol}}</h2>
+								<p>FOR YOU AT AN APPROPRIATE TIME</p>
+							</div>
+							<div class="container">
+								<p class="center">WHAT IS MORE IMPORTANT FOR YOU?</p>
+							</div>
+							<div class="container white">
+								<div class="clearfix">
+									<div class="range-label">
+										<span class="left">BUYING TIME</span>
+										<span class="right">BUYING PRICE</span>
+									</div>
+									<input type="range" min="2" max="84" value="35" class="slider" v-model='assetStategyTime'>
+								</div>
+							</div>	
+							<div class="container">
+								<p class="small">the estimated strategy PROCESSING time is</p>
+								<h2>{{assetStrategyStringValue}}</h2>
+								<p class="center">but may vary according to current market situation</p>
+							</div>
+						</div>
+						<div class="section-footer blue" style="cursor: pointer;" v-on:click="cryptoPage+=1">
+							<div class="container">
+								<a href="#">START THE STRATEGY<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-15" v-show="cryptoPage==6">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState"  class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY STRATEGY</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container blue">
+								<p>THE STRATEGY FOR BUYING</p>
+								<h2 class="big">{{cryptoYouWantToBuy}} {{currentAsset.symbol}}</h2>
+								<p>IS UP AND RUNNING</p>
+							</div>
+							<div class="container">
+								<h5>TIME left</h5>
+								<h2>{{assetStrategyStringValue}}</h2>
+								<img class="rang" src="img/bm_img/rang.png">
+								<h5>WE will notify you once we're done</h5>
+							</div>
+						</div>
+						<div class="section-footer ok ok-blue" style="cursor: pointer;" v-on:click="cryptoPage+=1">
+							<div class="container">
+								OK
+							</div>
+						</div>
+					</section>
+					<section class="section-16" v-show="cryptoPage==7">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY STRATEGY</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container blue">
+								<p>THE STRATEGY FOR BUYING</p>
+								<h2 class="big">{{cryptoYouWantToBuy}} {{currentAsset.symbol}}</h2>
+								<p>IS UP AND RUNNING</p>
+							</div>
+							<div class="container">
+								<h2 style="margin-bottom: 30px; margin-top: 80px;">DONE</h2>
+								<img class="rang" src="img/bm_img/ok-icon.png" style="margin-bottom: 100px; margin-top: 80px;">
+							</div>
+						</div>
+						<div class="section-footer ok ok-blue" style="cursor: pointer;" v-on:click="cryptoPage+=1">
+							<div class="container">
+								OK
+							</div>
+						</div>
+					</section>
+					<section class="section-17"  v-show="cryptoPage==8">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="cryptoPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">{{currentAsset.title}} BUY STRATEGY</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange long">
+										<p>YOU have bought</p>
+										<input type="text" value="2.0000" class="disabled" v-model="cryptoYouWantToBuy" disabled>
+									</div>
+									<p class="long usd">{{currentAsset.symbol}}</p>
+								</div>
+								<div class="clearfix">
+									<div class="input-block input-block-2 exchange long">
+										<p>for</p>
+										<input type="text" value="13,237.28" class="disabled" v-model="cryptoYouWantToBuyCost" disabled>
+									</div>
+									<p class="usd">USD</p>
+									<p class="long note">including <b>usd 5.00</b> commission fee</p>
+								</div>
+								<div class="clearfix">
+									<p>AS A RESULT OF THE FOLLOWING BUYing STRATEGY</p>
+									<div class="table">
+										<div class="row_h">
+											<p><span class="small">{{currentAsset.symbol}} <span class="pre-small">bought</span></span></p>
+											<p><span class="small">USD <span class="pre-small">per</span> {{currentAsset.symbol}}</span></p>
+											<p><span class="small">USD <span class="pre-small">spent</span></span></p>
+										</div>
+										<div class="row">
+											<p>{{(cryptoYouWantToBuy*0.3).toFixed(4)}}</p>
+											<p>{{(currentAsset.price*(1+randomCoeficient/100)).toFixed(2)}}</p>
+											<p>{{(currentAsset.price*cryptoYouWantToBuy*0.3*(1+randomCoeficient/100)).toFixed(2)}}</p>
+										</div>
+										<div class="row">
+											<p>{{(cryptoYouWantToBuy*0.5).toFixed(4)}}</p>
+											<p>{{(currentAsset.price*(1+(randomCoeficient-3)/100)).toFixed(2)}}</p>
+											<p>{{(currentAsset.price*cryptoYouWantToBuy*0.5*(1+(randomCoeficient-3)/100)).toFixed(2)}}</p>
+										</div>
+										<div class="row">
+											<p>{{(cryptoYouWantToBuy*0.2).toFixed(4)}}</p>
+											<p>{{(currentAsset.price*(1+(randomCoeficient+1)/100)).toFixed(2)}}</p>
+											<p>{{(currentAsset.price*cryptoYouWantToBuy*0.2*(1+(randomCoeficient+1)/100)).toFixed(2)}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="section-footer ok ok-blue" style="cursor: pointer;" v-on:click="cryptoPage=1, resetActiveAsset()">
+							<div class="container">
+								OK
+							</div>
+						</div>
+					</section>
+				</template>
+				<template v-if="globalPage=='spendings-advisory'">
+					<section class="section-5" v-show="advisooryPage==1">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<!--<a href="#" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>-->
+								<h3 class="header-h3 collaborative-funding">AI SMART ADVICES</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="text-block" v-for="(item, index) in listOfSpendingsAdvisory">
+								<div class="container">
+									<h2>{{item.title}}</h2>
+									<p>{{item.content}}</p>
+									<a v-on:click="listOfSpendingsAdvisory.splice(index, 1)" class="no-link">No, thank you</a>
+									<a v-on:click="advisooryPage=item.link" class="continue-link">
+										Continue
+										<i class="fa fa-angle-right" aria-hidden="true"></i>
+									</a>
+								</div>
+							</div>
+						</div>	
+					</section>
+					<section class="section-6" v-show="advisooryPage==2">
+						<header class="header">
+							<div class="container clearfix">
+								<a  v-on:click="togglMenuState"  class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="advisooryPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">get a flight miles credit card</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<ul>
+									<li>you fly 2 to 3 times a month</li>
+									<li>you spend 4,000 to 6,000 eur a month</li>
+								</ul>
+								<img src="img/bm_img/s-6-1.png" class="img">
+								<ul>
+									<li>get your free flight miles card</li>
+									<li>get 40 to 60 eur monthly as your<br> flight bonus points</li>
+								</ul>
+							</div>
+							<div class="grey-title">enjoy 2 to 3 free flights annually</div>
+							<div class="container">
+								<h5>the offer is limited</h5>
+							</div>
+						</div>	
+						<div class="section-footer">
+							<div class="container">
+								<a v-on:click="advisooryPage=1">apply for flight miles card<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-7" v-show="advisooryPage==3">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="advisooryPage=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">refinance your mortgage</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h2>please, tell us a little bit about your mortgage so that we could offer you more optimal conditions</h2>
+								<div class="clearfix">
+									<div class="input-block input-block-2">
+										<p>Mortgage value</p>
+										<input type="text" value="332,767.00">
+									</div>
+									<p class="usd">eur</p>
+								</div>
+								<div class="inputs">
+									<div class="input-item">
+										<span class="input-title">Interest rate</span>
+										<input type="text" value="4.2%">
+										<span class="sub-input">p.a.</span>
+									</div><!--
+									<div class="input-item">
+										<span class="input-title">pmi  (if applicable)</span>
+										<input type="text" value="0.5%">
+										<span class="sub-input">p.a.</span>
+									</div>-->
+								</div>
+								<div class="inputs">
+									<div class="input-item">
+										<span class="input-title">Loan term</span>
+										<input type="text" value="30">
+										<span class="sub-input">years</span>
+									</div>
+								</div>
+								<h3>your preference is to decrease</h3>
+								<div class="range-label">
+									<span class="left">Payment</span>
+									<span class="right">Term</span>
+								</div>
+								<input type="range" min="1" max="100" value="35" class="slider">
+							</div>
+						</div>	
+						<div class="section-footer">
+							<div class="container">
+								<a v-on:click="advisooryPage+=1">get refinance offer<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-8" v-show="advisooryPage==4">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a v-on:click="advisooryPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">refinance your mortgage</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h2>we have an offer you won't deny</h2>
+								<div class="clearfix">
+									<div class="input-block input-block-2">
+										<p>monthly payment</p>
+										<input type="text" value="1,300">
+									</div>
+									<p class="usd">eur</p>
+								</div>
+								<p class="red">
+									you save 200 eur monthly
+								</p>
+								<div class="inputs">
+									<div class="input-item">
+										<span class="input-title">Loan term</span>
+										<input type="text" value="35">
+										<span class="sub-input">years</span>
+									</div>
+									
+								</div>
+								<p class="red">
+									increased dy 5 years - not a big deal
+								</p>
+								<div class="inputs">
+									<div class="input-item">
+										<span class="input-title">Mortgage rate</span>
+										<input type="text" value="4.2%">
+										<span class="sub-input">p.a.</span>
+									</div>
+									
+									<!--
+									<div class="input-item">
+										<span class="input-title">pmi  (if applicable)</span>
+										<input type="text" value="">
+										<span class="sub-input">p.a.</span>
+										<span class="ceased">ceased</span>
+									</div>-->
+								</div>
+								<p class="red">
+									remained the same
+								</p>
+								<h3>and no penalties for early repayment</h3>
+							</div>
+						</div>	
+						<div class="section-footer">
+							<div class="container">
+								<a v-on:click="advisooryPage=1">apply for refinance<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+					<section class="section-9"  v-show="advisooryPage==5">
+						<header class="header">
+							<div class="container clearfix">
+								<a v-on:click="togglMenuState" class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<a  v-on:click="advisooryPage=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>
+								<h3 class="header-h3 collaborative-funding">INVEST YOUR AVAILABLE CASH</h3>
+							</div>
+						</header>
+						<div class="section-header">
+							<div class="container">
+								<h5>your current cash balance is</h5>
+								<h2>15,478.00 eur</h2>
+								<div class="inputs">
+									<div class="input-item">
+										<p>invest</p>
+										<input type="text" value="12,000.00 €" class="invest-euro" v-model="sliderNumOfMoney">
+									</div>
+									<div class="input-item">
+										<p>for</p>
+										<input type="text" value="12" class="month" v-model="sliderNumOfMonth">
+										<p>months</p>
+									</div>
+								</div>
+								<div class="range-label">
+									<span class="left" v-show="sliderRiskValue=='1'">low risk</span>
+									<span class="left" v-show="sliderRiskValue=='2'">medium risk</span>
+									<span class="left" v-show="sliderRiskValue=='3'">high risk</span>
+								</div>
+								<input type="range" min="1" max="3" value="2" class="slider" v-model="sliderRiskValue">
+								<p>suggested portfolio</p>
+								<div class="progress-block" v-show="sliderRiskValue=='1'">
+									<div>
+										<div class="label">equities</div><div class="progressbar-wrapper"><div class="progressbar red"  style="width: 12%">12%</div></div>
+									</div>
+									<div>
+										<div class="label">bond etfs</div><div class="progressbar-wrapper"><div class="progressbar green"  style="width: 72%">72%</div></div>
+									</div>
+									<div>
+										<div class="label">mining fund</div><div class="progressbar-wrapper"><div class="progressbar gray"  style="width: 15%">15%</div></div>
+									</div>
+									<div>
+										<div class="label">cryptocurrency</div><div class="progressbar-wrapper"><div class="progressbar orange" style="width: 0%; padding-left: 0;">0%</div></div>
+									</div>
+								</div>
+								<div class="progress-block" v-show="sliderRiskValue=='2'">
+									<div>
+										<div class="label">equities</div><div class="progressbar-wrapper"><div class="progressbar red"  style="width: 41%">41%</div></div>
+									</div>
+									<div>
+										<div class="label">bond etfs</div><div class="progressbar-wrapper"><div class="progressbar green"  style="width: 16%">16%</div></div>
+									</div>
+									<div>
+										<div class="label">mining fund</div><div class="progressbar-wrapper"><div class="progressbar gray"  style="width: 34%">34%</div></div>
+									</div>
+									<div>
+										<div class="label">cryptocurrency</div><div class="progressbar-wrapper"><div class="progressbar orange"  style="width: 9%">9%</div></div>
+									</div>
+								</div>
+								<div class="progress-block" v-show="sliderRiskValue=='3'">
+									<div>
+										<div class="label">equities</div><div class="progressbar-wrapper"><div class="progressbar red" style="width: 0%; padding-left: 0;">0%</div></div>
+									</div>
+									<div>
+										<div class="label">bond etfs</div><div class="progressbar-wrapper"><div class="progressbar green" style="width: 0%; padding-left: 0;">0%</div></div>
+									</div>
+									<div>
+										<div class="label">mining fund</div><div class="progressbar-wrapper"><div class="progressbar gray" style="width: 42%">42%</div></div>
+									</div>
+									<div>
+										<div class="label">cryptocurrency</div><div class="progressbar-wrapper"><div class="progressbar orange" style="width: 57%">57%</div></div>
+									</div>
+								</div>
+								<h5>your presumable annual profit is</h5>
+								<h2>{{sliderProfit}} eur ~ <span v-show="sliderRiskValue=='1'">6,8%</span><span v-show="sliderRiskValue=='2'">28,7%</span><span v-show="sliderRiskValue=='3'">76,2%</span></h2>
+							</div>
+						</div>	
+						<div class="section-footer">
+							<div class="container">
+								<a v-on:click="advisooryPage=1">submit strategy<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section>
+				</template>
+			</div>
+		</div>
+	</div>
+	<div class="block" v-show="secondScreen==true">
+		<div class="global-wrapper">
+			<div class="wrapper">
+				<template>
+					<section class="section-2">
+						<header class="header">
+							<div class="container clearfix">
+								<a class="menu-icon"></a>
+								<a href="index.html" class="logo">Raison</a>
+								<!--<a  v-on:click="fundingPage-=1" class="back-btn"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a>-->
+								<h3 class="header-h3 collaborative-funding">collaborative funding</h3>
+							</div>
+						</header>
+						<div class="container section-header">
+							<div class="user clearfix">
+								<a href="#"><img src="img/NKondratov.jpg" alt="Oleg Berezin"></a>
+								<h4>Nikolay kondratov</h4>
+								<h3>invites you to collaborate on</h3>
+							</div>
+							<h2>{{fundingGlobalOBject.purpose}}</h2>
+							<h5>funding progress</h5>
+							<div class="progress-bar">
+								<div class="progress-1" v-bind:style="{width: (realnumberContribution/fundingGlobalOBject.value)*100+'%'}"></div>
+								<div class="progress-2"></div>
+								<div class="values">
+									<div class="value-1">
+										<span class="value-left">{{realnumberContribution}} usd</span>
+										<span class="value-right">raised</span>
+									</div>
+									<div class="value-2">
+										<span class="value-left">{{fundingGlobalOBject.value-realnumberContribution}} usd</span>
+										<span class="value-right">left</span>
+									</div>
+								</div> <!-- .values -->
+							</div> <!-- .progress-bar -->
+							<h5>contribute</h5>
+							<div class="number">
+						    <span class="minus" v-on:click="howMuchToContribute-=10">less<br><span class="value-number">-10 usd</span></span>
+						    <input type="text" value="60 USD" size="5" v-model="howMuchToContribute" />
+						    <span class="plus" v-on:click="howMuchToContribute+=10">more<br><span class="value-number">+10 usd</span></span>
+							</div>
+							<h5>time left</h5>
+							<div id="CDT"></div>
+						</div>
+						<div class="section-footer" v-on:click="secondScreen=false, changeContributionValue(), startTimeOutPen()">
+							<div class="container">
+								<a>contribute now<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</section> <!-- .section-2 -->
+				</template>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="js/countdown.js"></script>
+<script src="js/vue-controller.js?v1.0.2"></script>
+
+<script>
+
+
+</script>
+
+</body>
+</html>
